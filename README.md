@@ -1,1 +1,3 @@
-# DIT632-WP1
+# DIT632-WPs
+
+### Each folder represents one work package
