@@ -1,3 +1,2 @@
 # DIT632-WPs
-
-### Each folder represents one work package
+All exercises are in `/wp1`
