@@ -31,20 +31,27 @@ char shiftLetter(char c, int maxSize) {
   }
 
 int main(int argc, char *argv[]) {
+  
+  //Infinite loop until user decides to end program
+  while(1) {
 
-// Converts the command line argument to an int and then puts that value as the maximum
-// amount of characters that will be taken from the user and shifted.
-int argument = atoi(argv[1]); 
-char userInput[argument];
-scanf ("%s", userInput);
+    // Converts the program argument to an int and then puts that value as the maximum
+    // amount of characters that will be taken from the user and shifted.
+    int argument = atoi(argv[1]); 
+    char userInput[argument];
+    printf("Type the word you want encrypted\n");
+    scanf("%s", userInput);
 
-// Calls the function to shift the letters with the input from the user
-for (int i = 0; i < argument; i++) {
-  userInput[i] = shiftLetter(userInput[i], argument);
-}
-// Prints the result + limits the amount of characters to be printed in accordance with the command line argument.
-printf("%.*s\n", argument, userInput);
+    // Calls the function to shift the letters with the input from the user
+    for (int i = 0; i < argument; i++) {
+      userInput[i] = shiftLetter(userInput[i], argument);
+    }
+    // Prints the result + limits the amount of characters to be printed in accordance with the program argument.
+    printf("Result of encryption:\n");
+    printf("%.*s\n", argument, userInput);
 
+  }
+  
   return 0;
 }
 
