@@ -1,17 +1,28 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAX 27
 
-int letterCheck(char c) {
+// Checks if the letter is upper or lowercase,
+// 90 is the last upper case letter in the ASCII table 
+// Returns the mid point in the alphabet of either lower case or upper case characters
+int caseCheck(char c) {
+
+  int upperCaseMidPoint = 78;
+  int lowerCaseMidPoint = 110;
+   
     if (c < 91) {
-      return 78;
+      return upperCaseMidPoint;
     }
-      return 110;
+      return lowerCaseMidPoint;
 }
-char swapLetter(char c) {
 
-    for (int i = 0; i < 6; i++) {
-      if (c < letterCheck(c)) {
+// shifts the char with either +13 or -13 points in the ascii table depending on its position in the alphabet
+// caseCheck determines the value to use depending on the case of the character
+// maxSize is determined by the command line argument
+char shiftLetter(char c, int maxSize) {
+
+    for (int i = 0; i < maxSize; i++) {
+      if (c < caseCheck(c)) {
         return c + 13;
       }
       else if (c >= 78)
@@ -19,17 +30,20 @@ char swapLetter(char c) {
       }
   }
 
-int main(void) {
+int main(int argc, char *argv[]) {
 
-char userinput[100];
-char testInput[6] = {'B','a','n','a','n','\0'};
-char test = 'b' -32;
+// Converts the command line argument to an int and then puts that value as the maximum
+// amount of characters that will be taken from the user and shifted.
+int argument = atoi(argv[1]); 
+char userInput[argument];
+scanf ("%s", userInput);
 
-
-for (int i = 0; i < 6; i++) {
-  testInput[i] = swapLetter(testInput[i]);
+// Calls the function to shift the letters with the input from the user
+for (int i = 0; i < argument; i++) {
+  userInput[i] = shiftLetter(userInput[i], argument);
 }
-printf("%s\n",testInput);
+// Prints the result + limits the amount of characters to be printed in accordance with the command line argument.
+printf("%.*s\n", argument, userInput);
 
   return 0;
 }
