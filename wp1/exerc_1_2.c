@@ -19,17 +19,13 @@ int caseCheck(char c) {
 // shifts the char with either +13 or -13 points in the ascii table depending on its position in the alphabet
 // caseCheck determines the value to use depending on the case of the character
 // maxSize is determined by the command line argument
-char shiftLetter(char c, int maxSize) {
-
-    for (int i = 0; i < maxSize; i++) {
+char shiftLetter(char c) {
       if (c < caseCheck(c)) {
         return c + 13;
       }
       else if (c >= 78)
         return c - 13;
       }
-  }
-
 int main(int argc, char *argv[]) {
   
   //Infinite loop until user decides to end program
@@ -42,9 +38,9 @@ int main(int argc, char *argv[]) {
     printf("Type the word you want encrypted\n");
     scanf("%s", userInput);
 
-    // Calls the function to shift the letters with the input from the user
+    // Calls the function to shift the letters
     for (int i = 0; i < argument; i++) {
-      userInput[i] = shiftLetter(userInput[i], argument);
+      userInput[i] = shiftLetter(userInput[i]);
     }
     // Prints the result + limits the amount of characters to be printed in accordance with the program argument.
     printf("Result of encryption:\n");
