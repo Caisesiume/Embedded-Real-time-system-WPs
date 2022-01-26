@@ -15,6 +15,7 @@ int main()
         printf("This is sentence number %d \n",chosenNumber );
     }
     else {
+        //closes the loop
         exit = true;
     }
     }
