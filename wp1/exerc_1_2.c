@@ -18,7 +18,6 @@ int caseCheck(char c) {
 
 // shifts the char with either +13 or -13 points in the ascii table depending on its position in the alphabet
 // caseCheck determines the value to use depending on the case of the character
-// maxSize is determined by the command line argument
 char shiftLetter(char c) {
       if (c < caseCheck(c)) {
         return c + 13;
