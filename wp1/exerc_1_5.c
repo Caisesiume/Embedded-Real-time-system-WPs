@@ -36,6 +36,7 @@ int main (void){
     int frequency[MAXNUMBER]; 
     create_random(table);
     count_frequency(table,frequency);
+    draw_histogram(frequency);
     return 0;
 } 
 
@@ -45,7 +46,7 @@ int create_random(int *tab){
     for(int i= 0; i< MAX; i++){
        int random = rand ()% MAXNUMBER;
        tab[i] = random;
-       printf("%d\n", tab[i]);
+       //printf("%d\n", tab[i]);
     }
     return 0;    
 }
@@ -63,11 +64,22 @@ int count_frequency(int *tab, int *freq ){
         freq[i] = count;
     }
    
-     for (int i =0 ; i< MAXNUMBER; i++){
-    
-       printf("%d occurs %d times\n", i , freq[i]);    
-        
-    }
  
     return 0;
 } 
+
+int draw_histogram(int *freq ) {
+
+    for (int i = 0 ; i< MAXNUMBER; i++){
+         if (freq[i] > 0) {
+            printf("%d ", i);
+            for(int j = 0; j < freq[i]; j++) {
+            printf("%c", 'x'); 
+            }
+            printf("\n");
+
+            }
+         }
+    return 0;
+
+}
