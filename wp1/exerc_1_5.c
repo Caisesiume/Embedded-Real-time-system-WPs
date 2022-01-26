@@ -31,7 +31,7 @@ int draw_histogram(int *freq );
 // If you choose to go for the optional part 
 // Please modify it accordingly 
 int main (void){ 
- 
+    
     int table[MAX], n ; 
     int frequency[MAXNUMBER]; 
     create_random(table);
@@ -40,38 +40,34 @@ int main (void){
 } 
 
 int create_random(int *tab){
-    int table[MAX];
-    tab = &table[0];
+
+    srand ( time(NULL) );
     for(int i= 0; i< MAX; i++){
        int random = rand ()% MAXNUMBER;
-       *tab = random;
-       printf("%d\n", table[i]);
-       tab ++;
+       tab[i] = random;
+       printf("%d\n", tab[i]);
     }
     return 0;    
 }
 
 int count_frequency(int *tab, int *freq ){   
-    int table [MAX];
-    int frequencyArray [MAX];
-    int count,i;
-    if(table[i]!= -1) {
-    for (i =0 ; i< MAX; i++){
-        count = 1;
-        freq ++;
-        for( int j = i+ 1; j< MAX; j++){
-            if ( table[i]== table[j]){
-                count ++;
-                table[j]= -1;
-            } 
+
+    int count;
+    for (int i = 0; i < MAXNUMBER; i++) {
+        count = 0;
+        for (int j = 0; j < MAX; j++) {
+            if ( i == tab[j]) {
+                count++;
+            }
         }
-        frequencyArray[i]= count;       
-    }       
+        freq[i] = count;
     }
-    for (i =0 ; i< MAX; i++){
-        if( table[i]!= -1){
-        printf("%d occurs %d times\n", table[i], frequencyArray[i]);    
-        }
+   
+     for (int i =0 ; i< MAXNUMBER; i++){
+    
+       printf("%d occurs %d times\n", i , freq[i]);    
+        
     }
+ 
     return 0;
 } 
