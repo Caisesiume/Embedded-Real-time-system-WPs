@@ -23,7 +23,57 @@ int draw_histogram(int *freq );
  
 // ------ Function definitions   ---------- 
  
+int create_random(int *tab){
+
+    srand ( time(NULL) );
+    for(int i= 0; i< MAX; i++){
+       int random = rand ()% MAXNUMBER;
+       tab[i] = random;
+    }
+    return 0;    
+}
  
+int count_frequency(int *tab, int *freq ){   
+
+    // Counts all possible numbers in loop and adds the
+    // total count in to that position in the frequency array
+    // e.g. if the number 3 occurs 4 times the third position
+    // will have the value of 4
+    
+    int count;
+    for (int i = 0; i < MAXNUMBER; i++) {
+        count = 0;
+        for (int j = 0; j < MAX; j++) {
+            if ( i == tab[j]) {
+                count++;
+            }
+        }
+        
+        freq[i] = count;
+    }
+    return 0;
+} 
+
+int draw_histogram(int *freq ) {
+
+    // Checks if the value is greater than 0 and then prints
+    // as many x's as that value
+    // does nothing if < 0
+    
+    for (int i = 0 ; i< MAXNUMBER; i++){
+         if (freq[i] > 0) {
+            printf("%d ", i);
+            for(int j = 0; j < freq[i]; j++) {
+            printf("%c", 'x'); 
+            }
+            printf("\n");
+
+            }
+         }
+    return 0;
+
+}
+
 // ------ Main   -------------------------- 
  
 // The main entry point for the program 
@@ -40,46 +90,4 @@ int main (void){
     return 0;
 } 
 
-int create_random(int *tab){
 
-    srand ( time(NULL) );
-    for(int i= 0; i< MAX; i++){
-       int random = rand ()% MAXNUMBER;
-       tab[i] = random;
-       //printf("%d\n", tab[i]);
-    }
-    return 0;    
-}
-
-int count_frequency(int *tab, int *freq ){   
-
-    int count;
-    for (int i = 0; i < MAXNUMBER; i++) {
-        count = 0;
-        for (int j = 0; j < MAX; j++) {
-            if ( i == tab[j]) {
-                count++;
-            }
-        }
-        freq[i] = count;
-    }
-   
- 
-    return 0;
-} 
-
-int draw_histogram(int *freq ) {
-
-    for (int i = 0 ; i< MAXNUMBER; i++){
-         if (freq[i] > 0) {
-            printf("%d ", i);
-            for(int j = 0; j < freq[i]; j++) {
-            printf("%c", 'x'); 
-            }
-            printf("\n");
-
-            }
-         }
-    return 0;
-
-}
