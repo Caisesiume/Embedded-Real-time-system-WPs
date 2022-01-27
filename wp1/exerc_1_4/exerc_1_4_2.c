@@ -2,15 +2,35 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(int argc, int* argv[]) {
+int main(int argc, char* argv[]) {
 
-    int binary_number = argv[1];
-    printf("Input Binary value: %s\n",binary_number);
-    long int hexadecimal_number;
+    unsigned int hexadecimal_number = 0;
+    unsigned int binary_number = 0;
+    // scanf("%d", binary_number); // Leaving this scanf uncommented gives segmentation fault.
+    // Print should print both Binary and Hexa
+    printf("Input Binary value: %d\n",binary_number);
+    int remainder;
+    int i = 1;
 
+    // Loops until the remaining number is 0. 
+    // That way, the translation of the binary number is done correctly.
+    // The algorithm of translating binary into hexadecimals was inspired by
+    // Link: ()
+    while (binary_number != 0)
+    {
+        remainder = binary_number % 10; 
+        hexadecimal_number = hexadecimal_number + remainder * i;
+        i = i*2;
+        binary_number = binary_number / 10;
+    }
+
+    // Use capital X to get capital letters in Hex code
+    printf("Hexa format: %X", hexadecimal_number);
+    
     // The output from the other program needs to be used as program argument. 
     // something like int binary_value = argv[1];
 
+    // --- CONCEPT ---
     // converts binary_value to hex_value
     // The conversion can be done by checking:
     // If the input is not zero, then check how many zeros are followed by the first one.
@@ -20,6 +40,7 @@ int main(int argc, int* argv[]) {
     // %lX used to print the number in hexadecimal format.
     // Should not be 'argv[1]'
     
-    printf("The Hexadecimal Value: %lX", hexadecimal_number);
+    // 1010 0111 = A7 = 167
+    //  A   4+2+1
     return 0;
 }
