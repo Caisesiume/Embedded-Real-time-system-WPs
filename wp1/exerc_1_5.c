@@ -29,6 +29,7 @@ int create_random(int *tab){
     for(int i= 0; i< MAX; i++){
        int random = rand ()% MAXNUMBER;
        tab[i] = random;
+       printf("%d\n", random);
     }
     return 0;    
 }
