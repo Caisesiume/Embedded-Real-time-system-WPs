@@ -25,6 +25,8 @@ int draw_histogram(int *freq );
  
 int create_random(int *tab){
 
+    // Fills the table with random numbers up to the MAX value defined
+    // And prints them out
     srand ( time(NULL) );
     for(int i= 0; i< MAX; i++){
        int random = rand ()% MAXNUMBER;
@@ -36,20 +38,23 @@ int create_random(int *tab){
  
 int count_frequency(int *tab, int *freq ){   
 
-    // Counts all possible numbers in loop and adds the
-    // total count in to that position in the frequency array
-    // e.g. if the number 3 occurs 4 times the third position
-    // will have the value of 4
-    
     int count;
+    // First loop loops through all of the possible numbers that was
+    // Randomly generated
     for (int i = 0; i < MAXNUMBER; i++) {
+        // Resets the count everytime the loop looks for a new number
         count = 0;
+        // Second loopo looks through the table to see how many times i occur
+        // Everytime it occurs the count increases by one
         for (int j = 0; j < MAX; j++) {
             if ( i == tab[j]) {
                 count++;
             }
         }
         
+        // Adds the count of i to the position of i in the freq table
+        // If the number 3 occures 5 times in the table
+        // freq[3] will have the value of 5
         freq[i] = count;
     }
     return 0;
@@ -57,13 +62,13 @@ int count_frequency(int *tab, int *freq ){
 
 int draw_histogram(int *freq ) {
 
-    // Checks if the value is greater than 0 and then prints
-    // as many x's as that value
-    // does nothing if < 0
-    
+    // Goes through the freq table to count each occurence of the numbers
     for (int i = 0 ; i< MAXNUMBER; i++){
+         // Will only print out if it occurs more than 0 times
          if (freq[i] > 0) {
+            // Prints out the number that is being counted
             printf("%d ", i);
+            // Will print an 'x' the number of times that number occured
             for(int j = 0; j < freq[i]; j++) {
             printf("%c", 'x'); 
             }
@@ -78,9 +83,6 @@ int draw_histogram(int *freq ) {
 // ------ Main   -------------------------- 
  
 // The main entry point for the program 
-//  
-// If you choose to go for the optional part 
-// Please modify it accordingly 
 int main (void){ 
     
     int table[MAX], n ; 
