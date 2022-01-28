@@ -3,45 +3,32 @@
 
 #define MAX 100
 
+char shiftLetter(int shiftValue, int startOfAlphabet, int endOfAlphabet) {
 
-// Checks if the letter is upper or lowercase,
-// 90 is the last upper case letter in the ASCII table 
-// Returns the mid point in the alphabet of either lower case or upper case characters
+  if (shiftValue > endOfAlphabet) {
 
-
-
-// shifts the char with either +13 or -13 points in the ascii table depending on its position in the alphabet
-// caseCheck determines the value to use depending on the case of the character
-char shiftLetter(char c, int shiftValue) {
-
-
-  if (c <= 90 && c >= 65 ) {
-
-
-  if (c + shiftValue > 90) {
-    return 64 + (c + shiftValue - 90);
+    return startOfAlphabet + (shiftValue - endOfAlphabet);
   }
 
   else {
 
-    return c + shiftValue;
+    return shiftValue;
   }
+}
+// Function to encrypt the input from the user
+char encrypt(char c, int argument) {
+ 
+  char shiftValue = c + argument;
+  // Checks if the character is upper case using ASCII table values
+  if (c <= 90 && c > 64 ) {
+
+  return shiftLetter(shiftValue, 64, 90);
+
   }
 
-  else if (c <= 122 && c >= 97) {
-
-  if (c + shiftValue > 122) {
-    
-   return 96 + (c + shiftValue - 122);
-
-
-
-  }
+  else if (c <= 122 && c > 96) {
   
-
-  else {
-    return c + shiftValue;
-  }
+  return shiftLetter(shiftValue, 96, 122);
 
   }
 
@@ -55,22 +42,19 @@ char shiftLetter(char c, int shiftValue) {
 
 int main(int argc, char *argv[]) {
   
-  //Infinite loop until user decides to end program
   int argument = atoi(argv[1]); 
   
+  //Infinite loop until user decides to end program
   while(1) {
 
-    // Converts the program argument to an int and then puts that value as the maximum
-    // amount of characters that will be taken from the user and shifted.
-    char userInput[MAX];
+    
     printf("Type the word you want encrypted\n");
+    char userInput[MAX];
     scanf("%s", userInput);
 
-    // Calls the function to shift the letters
     for (int i = 0; i < MAX; i++) {
-      userInput[i] = shiftLetter(userInput[i], argument);
+      userInput[i] = encrypt(userInput[i], argument);
     }
-    // Prints the result + limits the amount of characters to be printed in accordance with the program argument.
     printf("Result of encryption:\n");
     printf("%s\n", userInput);
 
