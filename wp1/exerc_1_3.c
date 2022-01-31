@@ -51,7 +51,7 @@ int guessGame()
       ungetc(charinput, stdin);
       // Message letting the user know to enter a valid number
       printf("You must enter a valid number. Try again:\n");
-      //
+      // forcing the next loop to start after this one
       continue;
     }
     // If the user input was a number over 100 or less than 1
