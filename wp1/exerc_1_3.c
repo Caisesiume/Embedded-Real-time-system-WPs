@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-#define CHANCES 2 // Defining the number of chances a user has
+#define MAX_NUMBER 2 // Defining the number of chances a user has
 
 // ------ Function declarations   ----------
 
@@ -30,10 +30,10 @@ int guessGame()
   int charinput;
   // Message printed to user introducing the game and how many tries the user has
   printf("Welcome to the guess game! A number has been chosen between 1-100.");
-  printf("You have %d chances!\n", CHANCES);
+  printf("You have %d chances!\n", MAX_NUMBER);
 
   // Loop starting the game and i is initialized at 0 to number of tries user has - 1
-  for (i = 0; i < CHANCES; i++)
+  for (i = 0; i < MAX_NUMBER; i++)
   {
     // Once the round starts the user should see the message to enter a number between 1-100
     printf("Please enter your guess between 1-100:\n");
@@ -66,7 +66,7 @@ int guessGame()
     // telling them they chose the right number and how many tries it took
     else if (chosenNumber == randomNumber)
     {
-      printf("You guessed correctly and have guessed %d times\n ", CHANCES);
+      printf("You guessed correctly and have guessed %d times\n ", MAX_NUMBER);
       break;
     }
     // If the user inputted a number greater than the random number
@@ -83,7 +83,7 @@ int guessGame()
     }
   }
   // If the tries are all used up the user should a message saying game is over
-  if (i == CHANCES)
+  if (i == MAX_NUMBER)
   {
     printf("Game Over\n");
   }
