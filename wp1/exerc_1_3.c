@@ -20,8 +20,8 @@ int guessGame()
   // Makes sure the random number selected in each round changes
   srand(time(NULL));
   // Declaring random number and stating the minimum and max numbers to randomize between
-  // Formula is rand % (MAX number + MIN number - 1)
-  int randomNumber = rand() % (100 + 1 - 1);
+  // Formula is rand() % (max_number + 1 - minimum_number) + minimum_number
+  int randomNumber = rand() % (100 + 1 - 1) + 1;
   // Initializing variable to take in the number chosen by the user
   int chosenNumber;
   // Number of tries the user makes
