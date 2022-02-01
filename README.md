@@ -1,2 +1,2 @@
 # DIT632-WPs
-All exercises are in `/wp1`
+All exercises are in respective wp folders
