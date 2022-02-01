@@ -1,3 +1,5 @@
+//Tuesday1
+
 // Program works in combination with exerc_1_4.c
 // This program looks for stdin of a binary number to convert to hexadecimal format.
 // Program should be executed in a pipeline:
