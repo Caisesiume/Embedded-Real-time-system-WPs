@@ -1,3 +1,2 @@
 # DIT632-WPs
-
-### Branches used for work packages
+All exercises are in respective wp folders
