@@ -1,6 +1,6 @@
 // ---- CONCEPTUAL IMPLEMENTATION ----
 // Implement the positioning with struct.
-// The input needs to be looped taking 2 different type of inputs.
+// The input needs to be in a loops, taking 2 different type of inputs.
 // Takes user input for start position.
 // Start direction is always north.
 // (x, y)
@@ -20,6 +20,7 @@
 // This step repeats until the input string (char array) contains a S.
 
 #include <stdio.h>
+#include <string.h>
 
 #define MAX 100
 
@@ -29,7 +30,7 @@ void move(char *input);
 void turn(char *input);
 
 // Decides which direction the robot will walk in
-enum DIRECTION (N, O, S, W);
+enum DIRECTION {N, O, S, W};
 
 typedef struct { 
     int xpos;
@@ -39,6 +40,18 @@ typedef struct {
 } ROBOT;
 
 int main(void) {
-
+    ROBOT bot;  //Declares the robot in the main function
+    char input_start, input_moves;
+    char stop_sign;
+    //The loop needs to run at least once for the users to give input
+    //of the starting positions.
+    do
+    {
+        //Initial loop used for taking the initial input.
+        printf("Enter starting position (X-Axis): ");
+        scanf("%2s", bot.xpos);
+        // HERE GOES A SECOND LOOP
+            // Looping through the input char array consisting of m,t and possibly s.
+    } while (stop_sign == 's');
     return 0;
 }
