@@ -32,7 +32,9 @@ void writeNewFile(PERSON *inrecord) {
     char *fileName = "employee_record.bin";
     fileToWrite = fopen(fileName, "wb+");
 
-      fwrite(&inrecord, sizeof(PERSON), 1, fileToWrite);
+    
+
+      fwrite(inrecord, sizeof(PERSON), 1, fileToWrite);
       fclose(fileToWrite);
       printf("%s %s %s\n", inrecord->firstname, inrecord->famname, inrecord->pers_number);
 
@@ -88,9 +90,9 @@ int main(void){
 
         if(choice == 1) {
 
-            strncpy(ppost.firstname, "Guy \n", 20);
-            strncpy(ppost.famname, "Placeholder \n", 20);
-            strncpy(ppost.pers_number, "123456789012\n", 13);
+            strncpy(ppost.firstname, "Guy ", 20);
+            strncpy(ppost.famname, "Placeholder ", 20);
+            strncpy(ppost.pers_number, "123456789012", 13);
 
             writeNewFile(&ppost);
         }
@@ -104,7 +106,7 @@ int main(void){
             printf("Lastly enter the persons personnumber (yyyymmddxxxx)\n");
             scanf("%s", ppost.pers_number);
             
-            append_file(&ppost);
+            writeNewFile(&ppost);
 
             printf("entry successfully added!\n");
         }
