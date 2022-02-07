@@ -17,7 +17,8 @@ typedef struct {
 PERSON input_record(void);             // Reads a person’s record. 
 void write_new_file(PERSON *inrecord);  // Creates a file and  
 // writes the first record 
-void printfile(void);     // Prints out all persons in the file 
+void printfile();     // Prints out all persons in the file 
+
 void search_by_firstname(char *name); // Prints out the person if    
 // in list  
 void append_file(PERSON *inrecord);    // appends a new person to the file 
@@ -27,17 +28,45 @@ void writeNewFile(PERSON *inrecord) {
 
      
     
-    
     FILE* fileToWrite;
-    char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/TesAat.txt";
-    fileToWrite = fopen(fileName, "w");
+    char *fileName = "employee_record.bin";
+    fileToWrite = fopen(fileName, "wb+");
+
+      fwrite(&inrecord, sizeof(PERSON), 1, fileToWrite);
+      fclose(fileToWrite);
+      printf("%s %s %s\n", inrecord->firstname, inrecord->famname, inrecord->pers_number);
+
+
+
+}
+
+void printfile() {
+    
+    PERSON testPerson;
+    int n = 0;
+    ;
+    FILE* fileToRead;
+    char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/employee_record.bin";
+    fileToRead = fopen(fileName,"rb");
+     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead) != 0) // while the file still has content print the person
+    {
+    printf("%s", testPerson.pers_number); // print the person struct
+     }
+        }
+    
+
+    
+
+
+void append_file(PERSON *inrecord) {
+     FILE* fileToWrite;
+    char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/employee_record.txt";
+    fileToWrite = fopen(fileName, "a");
+    fprintf(fileToWrite, "\n");
     fprintf(fileToWrite, inrecord->firstname);
     fprintf(fileToWrite, inrecord->famname);
     fprintf(fileToWrite, inrecord->pers_number);
     fclose(fileToWrite);
-
-
-
 }
 
 int main(void){ 
@@ -59,9 +88,9 @@ int main(void){
 
         if(choice == 1) {
 
-            strncpy(ppost.firstname, "Putte ", 20);
-            strncpy(ppost.famname, "sundell ", 20);
-            strncpy(ppost.pers_number, "1010101", 13);
+            strncpy(ppost.firstname, "Guy \n", 20);
+            strncpy(ppost.famname, "Placeholder \n", 20);
+            strncpy(ppost.pers_number, "123456789012\n", 13);
 
             writeNewFile(&ppost);
         }
@@ -75,9 +104,19 @@ int main(void){
             printf("Lastly enter the persons personnumber (yyyymmddxxxx)\n");
             scanf("%s", ppost.pers_number);
             
-            writeNewFile(&ppost);
+            append_file(&ppost);
 
             printf("entry successfully added!\n");
+        }
+
+        if(choice == 3) {
+            printf("Type the name of the employee you want to find\n");
+            scanf("%s", ppost.firstname);
+
+        }
+
+        if(choice == 4) {
+           
         }
 
         if(choice == 5) {
