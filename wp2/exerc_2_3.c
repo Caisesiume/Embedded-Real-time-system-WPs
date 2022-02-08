@@ -1,3 +1,5 @@
+//Submission code 53Tuesday
+
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
@@ -71,21 +73,25 @@ void search_by_firstname(char* name) {
     PERSON tmpPerson;
     FILE* filePointer;
 
-    if (filePointer = fopen(NAME_OF_FILE,"rb")); {                                                       // Checks if the file exists
+    if (filePointer = fopen(NAME_OF_FILE,"rb")) {                                                       // Checks if the file exists
 
-    while (fread(&tmpPerson, sizeof(tmpPerson), 1, filePointer)) {                                       // Loops through all the entries in the file
+      while (fread(&tmpPerson, sizeof(tmpPerson), 1, filePointer)) {                                       // Loops through all the entries in the file
         
         if (strcmp(name, tmpPerson.firstname) == 0 || strcmp(name, tmpPerson.famname) == 0) {            // If either the firstname or surname matches the search it will print that struct
 
              printf("%s %s %s\n",tmpPerson.firstname, tmpPerson.famname, tmpPerson.pers_number); 
-        }
-     fclose(filePointer);                                                                                // closes the file
-        }
+        }   
+
     }
+     fclose(filePointer);                                                                                // closes the file
+
+    } 
+
+    else {
         printf("file does not exist\n");                                                                 // error message if the file does not exist
+    }
      
 }
-
 int main(void){ 
     
     
