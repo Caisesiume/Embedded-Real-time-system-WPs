@@ -46,14 +46,15 @@ void printfile() {
     
     PERSON testPerson;
     int n = 0;
-    ;
+
     FILE* fileToRead;
     char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/employee_record.bin";
     fileToRead = fopen(fileName,"rb");
-     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead) != 0) // while the file still has content print the person
+     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead)) // while the file still has content print the person
     {
-    printf("%s", testPerson.pers_number); // print the person struct
+    printf("%s %s %s\n",testPerson.firstname, testPerson.famname, testPerson.pers_number); // print the person struct
      }
+     fclose(fileToRead);
         }
     
 
@@ -62,18 +63,16 @@ void printfile() {
 
 void append_file(PERSON *inrecord) {
      FILE* fileToWrite;
-    char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/employee_record.txt";
-    fileToWrite = fopen(fileName, "a");
-    fprintf(fileToWrite, "\n");
-    fprintf(fileToWrite, inrecord->firstname);
-    fprintf(fileToWrite, inrecord->famname);
-    fprintf(fileToWrite, inrecord->pers_number);
+    char *fileName = "employee_record.bin";
+    fileToWrite = fopen(fileName, "ab");
+   fwrite(inrecord, sizeof(PERSON), 1, fileToWrite);
     fclose(fileToWrite);
 }
-
+ 
 int main(void){ 
-    PERSON ppost;    
     
+    
+            PERSON ppost; 
     bool exit = false;
     int choice;
 
@@ -90,8 +89,9 @@ int main(void){
 
         if(choice == 1) {
 
-            strncpy(ppost.firstname, "Guy ", 20);
-            strncpy(ppost.famname, "Placeholder ", 20);
+           
+            strncpy(ppost.firstname, "Guy", 20);
+            strncpy(ppost.famname, "Placeholder", 20);
             strncpy(ppost.pers_number, "123456789012", 13);
 
             writeNewFile(&ppost);
@@ -106,18 +106,19 @@ int main(void){
             printf("Lastly enter the persons personnumber (yyyymmddxxxx)\n");
             scanf("%s", ppost.pers_number);
             
-            writeNewFile(&ppost);
+            append_file(&ppost);
 
             printf("entry successfully added!\n");
         }
 
         if(choice == 3) {
             printf("Type the name of the employee you want to find\n");
-            scanf("%s", ppost.firstname);
+           // scanf("%s", ppost.firstname);
 
         }
 
         if(choice == 4) {
+            printfile();
            
         }
 
