@@ -1,3 +1,5 @@
+//Tuesday1
+
 // Converts the decimal number into a binary
 // Could probably be done in a recursive way where you divide by 2 if the input is more than 1
 // and call the same function again.
