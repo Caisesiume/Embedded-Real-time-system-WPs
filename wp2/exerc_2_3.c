@@ -4,6 +4,7 @@
 #include<string.h>
 
 #define MAX 20
+#define NAME_OF_FILE "employee_record.bin"
  
  
 // -----typedefs ------- 
@@ -27,71 +28,63 @@ void append_file(PERSON *inrecord);    // appends a new person to the file
 
 void write_new_file(PERSON *inrecord) {
 
-     
+    FILE* filePointer;
+    filePointer = fopen(NAME_OF_FILE, "wb+");
+    fwrite(inrecord, sizeof(PERSON), 1, filePointer);
+    fclose(filePointer);
     
-    FILE* fileToWrite;
-    char *fileName = "employee_record.bin";
-    fileToWrite = fopen(fileName, "wb+");
-
-    
-
-      fwrite(inrecord, sizeof(PERSON), 1, fileToWrite);
-      fclose(fileToWrite);
-      printf("%s %s %s\n", inrecord->firstname, inrecord->famname, inrecord->pers_number);
-
-
-
 }
 
 void printfile() {
     
-    PERSON testPerson;
-    int n = 0;
+    PERSON tmpPerson;
+    FILE* filePointer;
+    filePointer = fopen(NAME_OF_FILE,"rb");
 
-    FILE* fileToRead;
-    char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/employee_record.bin";
-    fileToRead = fopen(fileName,"rb");
-     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead))
-    {
-    printf("%s %s %s\n",testPerson.firstname, testPerson.famname, testPerson.pers_number); // print the person struct
-     }
-     fclose(fileToRead);
-        }
+    while (fread(&tmpPerson, sizeof(tmpPerson), 1, filePointer))  {
+    
+    printf("%s %s %s\n",tmpPerson.firstname, tmpPerson.famname, tmpPerson.pers_number); // print the person struct
+    
+    }
+     
+    fclose(filePointer);
+        
+}
     
 
     
 
 
 void append_file(PERSON *inrecord) {
-     FILE* fileToWrite;
-    char *fileName = "employee_record.bin";
-    fileToWrite = fopen(fileName, "ab");
-   fwrite(inrecord, sizeof(PERSON), 1, fileToWrite);
-    fclose(fileToWrite);
+   
+    FILE* filePointer;
+    filePointer = fopen(NAME_OF_FILE, "ab");
+   
+    fwrite(inrecord, sizeof(PERSON), 1, filePointer);
+    fclose(filePointer);
 }
 
 void search_by_firstname(char* name) {
 
-    PERSON testPerson;
+    PERSON tmpPerson;
+    FILE* filePointer;
 
-    FILE* fileToRead;
-    char *fileName = "employee_record.bin";
-    fileToRead = fopen(fileName,"rb");
-     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead))
-    {
-        if (strcmp(name, testPerson.firstname) == 0) {
+    filePointer = fopen(NAME_OF_FILE,"rb");
+    while (fread(&tmpPerson, sizeof(tmpPerson), 1, filePointer)) {
+        
+        if (strcmp(name, tmpPerson.firstname) == 0 || strcmp(name, tmpPerson.famname) == 0) {
 
-             printf("%s %s %s\n",testPerson.firstname, testPerson.famname, testPerson.pers_number); // print the person struct
+             printf("%s %s %s\n",tmpPerson.firstname, tmpPerson.famname, tmpPerson.pers_number); 
         }
-     }
-     fclose(fileToRead);
-        }
+    }
+     
+     fclose(filePointer);
+}
 
- 
 int main(void){ 
     
     
-            PERSON ppost; 
+    PERSON ppost; 
     bool exit = false;
     int choice;
 
@@ -148,6 +141,7 @@ int main(void){
             printf("Bye Bye\n");
             exit = true;
         }
+
 
     }
 
