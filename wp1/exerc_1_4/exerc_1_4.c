@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
         else //If the number is big in size and can't be stored in an int.
         {
             number_long = (long)(full_number);
-            calculate_binary(number_short);
+            calculate_binary(number_long);
         }
     }
     else // If no arguments provided (No more than the file to run as an argument)
