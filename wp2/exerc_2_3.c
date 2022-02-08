@@ -15,8 +15,9 @@ typedef struct {
  
 // Function declaration (to be extend)  
 PERSON input_record(void);             // Reads a person’s record. 
-void write_new_file(PERSON *inrecord);  // Creates a file and  
+// Creates a file and  
 // writes the first record 
+void write_new_file(PERSON *inrecord);  
 void printfile();     // Prints out all persons in the file 
 
 void search_by_firstname(char *name); // Prints out the person if    
@@ -24,7 +25,7 @@ void search_by_firstname(char *name); // Prints out the person if
 void append_file(PERSON *inrecord);    // appends a new person to the file 
  
 
-void writeNewFile(PERSON *inrecord) {
+void write_new_file(PERSON *inrecord) {
 
      
     
@@ -50,7 +51,7 @@ void printfile() {
     FILE* fileToRead;
     char *fileName = "C:/Users/gusta/coding/SEM/DIT632-WPs/employee_record.bin";
     fileToRead = fopen(fileName,"rb");
-     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead)) // while the file still has content print the person
+     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead))
     {
     printf("%s %s %s\n",testPerson.firstname, testPerson.famname, testPerson.pers_number); // print the person struct
      }
@@ -68,6 +69,24 @@ void append_file(PERSON *inrecord) {
    fwrite(inrecord, sizeof(PERSON), 1, fileToWrite);
     fclose(fileToWrite);
 }
+
+void search_by_firstname(char* name) {
+
+    PERSON testPerson;
+
+    FILE* fileToRead;
+    char *fileName = "employee_record.bin";
+    fileToRead = fopen(fileName,"rb");
+     while (fread(&testPerson, sizeof(testPerson), 1, fileToRead))
+    {
+        if (strcmp(name, testPerson.firstname) == 0) {
+
+             printf("%s %s %s\n",testPerson.firstname, testPerson.famname, testPerson.pers_number); // print the person struct
+        }
+     }
+     fclose(fileToRead);
+        }
+
  
 int main(void){ 
     
@@ -94,7 +113,7 @@ int main(void){
             strncpy(ppost.famname, "Placeholder", 20);
             strncpy(ppost.pers_number, "123456789012", 13);
 
-            writeNewFile(&ppost);
+            write_new_file(&ppost);
         }
         
         if(choice == 2) {
@@ -112,8 +131,10 @@ int main(void){
         }
 
         if(choice == 3) {
+            char name[20];
             printf("Type the name of the employee you want to find\n");
-           // scanf("%s", ppost.firstname);
+            scanf("%s", name);
+            search_by_firstname(name);
 
         }
 
