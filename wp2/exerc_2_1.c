@@ -105,9 +105,9 @@ void turn(enum DIRECTION *current_dir) {
     // We only need to set the value to 0 if the enum is 3
     // since we have 4 directions.
     // 0 = N, 1 = O, 2 = S, 3 = W.
-    if (*current_dir == 3)
+    if (*current_dir == W)
     {
-        *current_dir = 0;
+        *current_dir = N;
     }
     else
     {
