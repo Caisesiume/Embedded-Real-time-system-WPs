@@ -39,7 +39,7 @@ void printfile() {
     
     PERSON tmpPerson;
     FILE* filePointer;
-    filePointer = fopen(NAME_OF_FILE,"rb");
+    if (filePointer = fopen(NAME_OF_FILE,"rb")) {
 
     while (fread(&tmpPerson, sizeof(tmpPerson), 1, filePointer))  {
     
@@ -48,7 +48,11 @@ void printfile() {
     }
      
     fclose(filePointer);
-        
+    }
+
+    else {
+        printf("file does not exist\n");
+    }
 }
     
 
@@ -69,16 +73,19 @@ void search_by_firstname(char* name) {
     PERSON tmpPerson;
     FILE* filePointer;
 
-    filePointer = fopen(NAME_OF_FILE,"rb");
+    if (filePointer = fopen(NAME_OF_FILE,"rb")); {
+
     while (fread(&tmpPerson, sizeof(tmpPerson), 1, filePointer)) {
         
         if (strcmp(name, tmpPerson.firstname) == 0 || strcmp(name, tmpPerson.famname) == 0) {
 
              printf("%s %s %s\n",tmpPerson.firstname, tmpPerson.famname, tmpPerson.pers_number); 
         }
-    }
-     
      fclose(filePointer);
+        }
+    }
+        printf("file does not exist\n");
+     
 }
 
 int main(void){ 
