@@ -1,3 +1,4 @@
+//Thursday 32
 // Variable for interval between blinks of light
 int lightSpeed = 0;
 // Variable for button clicked
