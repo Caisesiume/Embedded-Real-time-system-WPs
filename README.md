@@ -1,4 +1,4 @@
-# DIT632-WPs
+# Workpackages
 
 Past work packages are within the folders, starting with '/wp1'
 
