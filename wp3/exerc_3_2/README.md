@@ -2,7 +2,7 @@
 # Temperature and light meter
 ### All code here is used for Arduino environment only
 
-The code in both the `.c` and `.ino` files are the, just different file formats.
+The code in both the `.c` and `.ino` files are the same, just different file formats.
 
 ## Task:
 Create a system based on Arduino Uno or Arduino Yun, which measures the light intensity and temperature at the same time. The systems should monitor the dependency between these two measurements and warn about the deviations.  
