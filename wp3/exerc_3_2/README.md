@@ -25,3 +25,4 @@ it should be (YELLOW or BLUE).
 
 NOTE: `exerc_3_2` can not run nor compile outside an arduino uno environment.
 <img src="./exerc_3_2_board.png">
+
