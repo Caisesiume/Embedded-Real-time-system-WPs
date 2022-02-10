@@ -5,7 +5,7 @@
 The code in both the `.c` and `.ino` files are the, just different file formats.
 
 ## Task:
-### Use keypad.h library to make the same system as in Exercise 3.
+### Use keypad.h library to make the same system as in Exercise 3_4.
 
 In  Tinkercad  you  should  design  a  new  circuit  as  described 
 above and shown in the figure to right. We will later expand 
