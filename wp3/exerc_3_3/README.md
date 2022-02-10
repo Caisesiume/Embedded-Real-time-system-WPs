@@ -1,7 +1,7 @@
 # Temperature meter v2
 ### All code here is used for Arduino environment only
 
-The code in both the `.c` and `.ino` files are the, just different file formats.
+The code in both the `.c` and `.ino` files are the same, just different file formats.
 
 ## Task:
 In  this  exercise  you  should  add  the  display  of  the  temperature  to  your  temperature  meter  and  use  analog conversion of the temperature meter.   
