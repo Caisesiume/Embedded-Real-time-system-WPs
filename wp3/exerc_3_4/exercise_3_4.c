@@ -1,3 +1,4 @@
+//Thursday 32
 // Arrays for the pinouts the columns and rows the keypads are connected to
 const int pinCols[4]={7,6,5,4};
 const int pinRows[4]={11,10,9,8};
