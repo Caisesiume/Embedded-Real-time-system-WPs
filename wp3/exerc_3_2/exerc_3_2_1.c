@@ -1,20 +1,29 @@
+#define PINTEMP A0 // Analog 0
 
-#define PIN13 13
+#define PINLIGHT A1 // Analog 1
 
-#define PIN8 8
+#define LED_BLUE 8 // PIN 8
 
-#define PINTEMP A0
+#define LED_GREEN 7 // PIN 7
 
-#define PINLIGHT A1
+#define LED_RED 4 // PIN 4
+
+#define LOWER -1 //dependency indicator
+
+#define NORMAL 0 //dependency indicator
+
+#define HIGHER 1 //dependency indicator
 
 int tempSensorC;
 int lightIntensity;
-int pollrate = 5;
+const int pollrate = 2; // pollrate * 1000 gives the delay we are looking for in ms.
 
 // runs only on startup
 void setup()
 {
-  pinMode(PIN13, OUTPUT);
+  pinMode(LED_BLUE, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+  pinMode(LED_RED, OUTPUT);
   Serial.begin(9600);
 }
 
@@ -23,11 +32,146 @@ void loop()
 {
   tempSensorC = getTemp();
   lightIntensity = getLightIntensity();
+  int dependency = checkDependency(tempSensorC, lightIntensity);
+  if(dependency == 1)
+  {
+    digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_RED, HIGH);
+  }
+  else if(dependency == 0)
+  {
+    digitalWrite(LED_RED, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_GREEN, HIGH);
+  }
+  if(dependency == -1)
+  {
+    digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_BLUE, HIGH);
+    digitalWrite(LED_RED, LOW);
+  }
+  
+  
   Serial.print("Temp:");
   Serial.println(tempSensorC);
   Serial.print("Light:");
   Serial.println(lightIntensity);
+  Serial.print("Dep:");
+  Serial.println(dependency);
+  // Serial.print("Updated:");
+  // Serial.println(updated);
+  
+
   delay(pollrate*1000);
+}
+
+int checkDependency(int temp, int light) {
+    // --- LIGHT INTENSITY 0% ---
+    if (light == 0)
+    {
+        // The deviations can only be to the higher.
+        // Follows dependency| temp  | light|
+        // normal dependency | < -12 |  0%  |
+        // higher deviation  | >= -12|  0%  |
+        if (temp < -12)
+        {
+            // If the temperature is lower than -12C
+            // it is withing the normal dependency.
+          	return NORMAL;
+        }
+        else
+        {
+            // otherwise, the only possible state is for the temp to
+            // be higher or equal to -12C
+            
+          	return HIGHER;
+        }
+    }
+    // --- LIGHT INTENSITY RANGE 1% TO 20% ---
+    else if (light > 0 && light < 21)
+    {
+        // Follows dependency|  temp   |   light  |
+        // lower deviation   |  < -12  | 1% - 20% |
+        // normal dependency | -12 - 0 | 1% - 20% |
+        // higher deviation  |  >=  0  | 1% - 20% |
+
+        if (temp < -12)
+        {
+            // All temperatures below -12 are lower deviations.
+            // Blue = lower deviationn
+            // Calls function to give power for Blue LED and cut power for other LEDs
+        	return LOWER;
+        }
+        else if (temp >= -12 && temp < 0)
+        {
+            // temp ranges between -12 and -0 indicates normal dependency
+            // Green = normal
+           // Calls function to give power for Blue LED and cut power for other LEDs
+        	return NORMAL;
+        }
+        else if (temp >= 0)
+        {
+            // All temperatures above +0 are higher deviations.
+            // Red = higher deviation
+            // Calls function to give power for Blue LED and cut power for other LEDs
+        	return HIGHER;
+        }
+    }
+    // --- LIGHT INTENSITY RANGE 21% TO 60% ---
+    else if (light >= 21 && light <= 60)
+    {
+        // Follows dependency|  temp   |   light   |
+        // lower deviation   |   < 0   | 21% - 60% |
+        // normal dependency |  0 - 20 | 21% - 60% |
+        // higher deviation  |  > 20   | 21% - 60% |
+
+        if (temp < 0)
+        {
+            // All temperatures below 0 are lower deviations.
+            // Blue = lower deviationn
+            // Calls function to give power for Blue LED and cut power for other LEDs
+          	return LOWER;
+        }
+        else if (temp >= 0 && temp <= 20)
+        {
+            // temp ranges between 0 and 20 indicates normal dependency
+            // Green = normal
+            // Calls function to give power for Blue LED and cut power for other LEDs
+          	return NORMAL;
+        }
+        else if (temp > 20)
+        {
+            // All temperatures above 20 C are higher deviations.
+            // Red = higher deviation
+            // Calls function to give power for Blue LED and cut power for other LEDs
+          	return HIGHER;
+        }
+    }
+    // --- LIGHT INTENSITY RANGE 61% AND HIGHER ---
+    else if (light >= 61)
+    {
+        // Temps can only be lower than the normal dependency
+        // since there is no upper limit for it.
+        // Follows dependency|  temp   |  light  |
+        // lower deviation   |   < 21  |  >= 61% |
+        // normal dependency |  >= 21  |  >= 61% |
+
+        if (temp < 21)
+        {
+            // All temperatures below 21 C are lower deviations.
+            // Blue = lower deviationn
+             // Calls function to give power for Blue LED and cut power for other LEDs
+          	return LOWER;
+        }
+        else if (temp >= 21)
+        {
+            // temp greater or equal indicates normal dependency
+            // Green = normal
+             // Calls function to give power for Blue LED and cut power for other LEDs
+          	return NORMAL;
+        }
+    }
 }
 
 int getTemp() {
@@ -58,12 +202,56 @@ int getTemp() {
 }
 
 int getLightIntensity() {
+  // In order to establish a light intensity percentage we need a linear scale to compare
+  // our analog read with.
+  // What we are reading from pin A1(PINLIGHT) is not linear.
+  // Therefore we need to convert the analog read to a scale that is linear, like Lux.
   int lightPercentage;
   
   //analogRead reads the analog value of the input at the arg.
   int inputLight = analogRead(PINLIGHT);
   
-  lightPercentage = map(inputLight, 54, 974, 0, 100);
+  // Calculating Lux from Resistance explained by James Carlson:
+  
+  double Vout = inputLight*0.0048828125;
+  int lux=500/(10*((5-Vout)/Vout));
+  
+  lightPercentage = map(lux, 0, 98, 0, 100);
   
   return lightPercentage;
+}
+
+int updateLED(int deviation)
+{
+    // param represents the numbers defined at the top of the file.
+    // Either -1, 0, or 1.
+    // LOWER = -1
+    // NORMAL = 0
+    // HIGHER = 1
+    switch (deviation)
+    {
+    case -1: // -1 = LOWER deviation | We want the blue LED to be on, all other LEDs off.
+        digitalWrite(LED_BLUE, HIGH);
+      	delay(1000);
+        digitalWrite(LED_GREEN, LOW);
+      	delay(1000);
+        digitalWrite(LED_RED, LOW);
+        return 1;
+    case 0: // 0 = NORMAL dependency / No deviation | We want the green LED to be on, all other LEDs off.
+        digitalWrite(LED_GREEN, HIGH);
+      	delay(1000);
+        digitalWrite(LED_BLUE, LOW);
+      	delay(1000);
+        digitalWrite(LED_RED, LOW);
+        return 1;
+    case 1: // 1 = HIGER deviation | We want the red LED to be on, all other LEDs off.
+        digitalWrite(LED_RED, HIGH);
+      	delay(1000);
+        digitalWrite(LED_GREEN, LOW);
+      	delay(1000);
+        digitalWrite(LED_BLUE, LOW);
+        return 1;
+    default:
+      	return 0;
+    }
 }
