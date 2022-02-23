@@ -1,5 +1,3 @@
-//Thursday 32
-
 #define PINTEMP A0 // Analog 0
 
 #define PINLIGHT A1 // Analog 1
@@ -181,12 +179,6 @@ int checkDependency(int temp, int light) {
 int getTemp() {
   //analogRead reads the analog value of the input at the arg.
   int sensorOutput = analogRead(PINTEMP);
-  
-  // Gets the interval between 2nd & 3rd arg, outputs a value by the same ratio
-  // within the interval provided at arg 4 and 5.
-  // We know the min value from sensorOutput is 40 and max 358.
-  // We can then use map to change the scale to the scale we wish to use if the original
-  // scale is linear.
   
   // --- Mathematical solution to the conversion. ---
   double sensorOutC = (double) sensorOutput / 1023; 
