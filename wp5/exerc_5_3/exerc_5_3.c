@@ -1,3 +1,5 @@
+// Thursday 1
+
 #define PINTEMP A0 // Analog 0
 
 #define PINLIGHT A1 // Analog 1
