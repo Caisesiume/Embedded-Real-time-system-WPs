@@ -86,6 +86,7 @@ return cm;
 // Function to determine how intense the sound will be depending on distance to the object
 void buzzAlert(int distance) {
 
+    // Goes from lower distance to higher with each if/else if
     if( distance < threshHold[3]&& distance >= 0 ) {
         tone(BUZZER, soundVoltage[3]);
     }
@@ -104,6 +105,7 @@ void buzzAlert(int distance) {
 
     }
 
+    // Turns it off if it goes higher than the highest threshold 
     else {
         noTone(BUZZER);
 
