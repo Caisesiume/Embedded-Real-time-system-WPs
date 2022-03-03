@@ -20,5 +20,9 @@ and the deviation when the temperature is lower than it should be (YELLOW or BLU
 
 You can, but do not have to, use DHT.h library for this exercise.
 
-## No image for this task
-Instead, checkout the ``./vid_exerc_5_3.mp4``
+## Video
+<a href="https://streamable.com/pac7xe" title="Video Exerc_5_3"><img src="thumbnail_5_3.jpg" alt="Preview picture of Exercise 5_3" width="400"/></a>
+
+Click the picture to play video.<br>
+If video is broken, use this link: <a>https://streamable.com/pac7xe</a>
+
