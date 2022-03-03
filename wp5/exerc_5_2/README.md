@@ -23,3 +23,9 @@ Your task is to:
 
 ## Board:
 <img src="./exerc_5_2_board.jpg">
+
+## Demo:
+<a href="https://streamable.com/ayhdph" title="Video Exerc_5_3"><img src="thumbnail_5_2.jpg" alt="Preview picture of Exercise 5_2 Demo" width="400"/></a>
+
+Click the picture to play video.<br>
+If video is broken, use this link: <a>https://streamable.com/ayhdph</a>
