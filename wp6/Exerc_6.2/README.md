@@ -66,4 +66,4 @@ IO Pin 7 of the Arduino.|
 | Arduino Uno | |
  
 ## Views of the board
-<img src="./assets/exerc_6_2_board_view1.jpg" alt="Top view of the board with all components" width="300px"> <img src="./assets/exerc_6_2_board_view2.jpg" alt="Another Top view of the breadboard and Arduino" width="300">
+<img src="./assets/exerc_6_2_board_view1.jpg" alt="Top view of the board with all components" width="400px"> <img src="./assets/exerc_6_2_board_view2.jpg" alt="Another Top view of the breadboard and Arduino" width="400">
